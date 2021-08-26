@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappih    = 5;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 5;       /* vert inner gap between windows */
@@ -17,10 +17,12 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+static const char col_gold[]        = "#FFD700";
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_gray3, col_gray1, col_cyan },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_gold  },
 };
 
 /* tagging */
@@ -49,6 +51,8 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
         { "[@]",      spiral },
 	{ "[\\]",     dwindle },
 	{ "H[]",      deck },
@@ -60,8 +64,6 @@ static const Layout layouts[] = {
 	{ ":::",      gaplessgrid },
         { NULL,       NULL },
 	{ "[M]",      monocle },
-	{ "|M|",      centeredmaster },
-	{ ">M>",      centeredfloatingmaster },
 };
 
 /* key definitions */
@@ -87,8 +89,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	/* { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } }, */
+	/* { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } }, */
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_space,  zoom,           {0} },
@@ -97,17 +99,19 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_Return, setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_Return, togglefloating, {0} },
+        /* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[3]} }, */
+	/* { MODKEY,                       XK_Return, setlayout,      {0} }, */
+	/* { MODKEY|ShiftMask,             XK_Return, togglefloating, {0} }, */
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
+	{ MODKEY|Mod4Mask,              XK_g,      incrgaps,       {.i = +1 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_g,      incrgaps,       {.i = -1 } },
+	/*
+        { MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
@@ -119,6 +123,7 @@ static Key keys[] = {
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
+        */
 	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
 	TAGKEYS(                        XK_1,                      0)
